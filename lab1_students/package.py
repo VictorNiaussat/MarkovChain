@@ -1,5 +1,7 @@
 import numpy as np
-
+import pandas as pd
+import plotly.graph_objects as go
+import plotly.express as px
 
 P = np.array([
     [0.2,0.7,0.1],
@@ -65,4 +67,48 @@ def computeMoyenneReturn(positionOfReturn):
         tabNbStepReturn.append(positionOfReturn[i]-positionOfReturn[i-1])
     return np.mean(tabNbStepReturn)
 
+
+def show_histrogramm(states):
+    fig = px.histogram(states,x='Etat',histnorm='probability',title='Histogramme des états visités',nbins=3)
+    fig.update_traces(xbins_size=0.1)
+    fig.update_layout(
+        xaxis_title="Etats de la chaine",
+        yaxis_title="Probabilité de visite")
+    fig.show()
+
+def convert_vector_to_df(vector):
+    tab = np.zeros((3,2))
+    tab[:,0]=vector
+    tab[:,1]=[0,1,2]
+    return  pd.DataFrame(tab,columns=['Probabilité','Etat'])
+
+def show_histogramm_vector_df(df):
+    fig = go.Figure()
+    fig.add_trace(go.Histogram(x=df.Etat,y=df.Probabilité,histfunc='avg',text=['Etat 0','Etat 1','Etat 2'],name='Probabilité'))
+
+    fig.update_layout(barmode='stack')
+    fig.update_traces(xbins_size=0.1)
+    fig.update_layout(
+        xaxis_title="Etats de la chaine",
+        yaxis_title="Probabilité de visite")
+    fig.show()
+
+def show_superImposed_Histogramms(states,vector_1):
+    normalized_vector = np.real(vector_1[:,0] / np.sum(vector_1[:,0]))
+    print(f"Vecteur propre associé à la valeur propre 1 :           {vector_1[:,0]}")
+    print(f"Vecteur propre associé à la valeur propre 1 normalisé : {normalized_vector}")
+    norm_vector_df = convert_vector_to_df(normalized_vector)
+
+    fig = go.Figure()
+    fig.add_trace(go.Histogram(x=states.Etat,histnorm='probability',text=['Etat 0','Etat 1','Etat 2'],name='Probabilités empiriques'))
+    fig.add_trace(go.Histogram(x=norm_vector_df.Etat,y=norm_vector_df.Probabilité,histfunc='avg',text=['Etat 0','Etat 1','Etat 2'],name='Probabilité invariante'))
+
+    fig.update_layout(barmode='stack')
+    fig.update_traces(xbins_size=0.1)
+    fig.update_layout(
+        xaxis_title="Etats de la chaine",
+        yaxis_title="Probabilité de visite")
+    fig.show()
+def norm_eigen_vector(vector):
+    return np.real(vector[:,0] / np.sum(vector[:,0]))
 
