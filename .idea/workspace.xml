@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ee7874f-f3c3-48e3-b6af-e7899b81eca7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/MarkovChain.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MarkovChain.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab1_students/.idea/lab1_students.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lab1_students/.idea/lab1_students.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab1_students/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lab1_students/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab1_students/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab2_markov_students/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab2_markov_students/functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab2_markov_students/lab2_notebook.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/lab2_markov_students/lab2_notebook.ipynb" afterDir="false" />
-    </list>
+    <list default="true" id="5ee7874f-f3c3-48e3-b6af-e7899b81eca7" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,14 +21,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
