@@ -195,13 +195,14 @@ def acceptance_probability(f,y,xn,Tn):
     """
     return(1 if f(y)<f(xn) else np.exp(-(f(y)-f(xn))/Tn))
 
-def simulated_annealing(f,N,T_min,x0,T0):
+def simulated_annealing(f,N,T_min,x0,T0,draw_neighbour):
     """
     :param f(lambda): fonction considérée
     :param N: nombre d'itérations avant la fin de l'algorithme
     :param T_min: précision maximale
     :param x0: particule de départ
     :param T0: température initiale pour la probabilité d'acceptance
+    :param draw_neighbour: Fonction qui génère un voisin 
     :return: tuple (X,F) contenant deux array respectivempent : évolution de x, évolution de f(x)
     """
     n = 0
@@ -251,6 +252,7 @@ def create_city(K,max_size_city,etalement):
     grid = np.array(grid)
     return grid
 
+import pdb
 def distance_permut(sigma,dist,grid):
     """
     :param sigma(array-like): permutation considérée
@@ -296,4 +298,79 @@ def plotTSP(grid):
     plt.ylabel("coordonnée y")
     plt.show()
 
+def plot_distance_iter(F,N):
+    """
+    :param F(array-like): Liste des distances au fur et à mesure des itérations
+    :param N(int): nombre d'itérations
+    :return: None,affiche le graphe de l'évolution
+    """
+    plt.plot(F,color = "black",linewidth = 2)
+    plt.title(f"Distance du chemin en fonction \n du nombre d'itérations ($N = {N} $)")
+    plt.xlabel("Nb itérations")
+    plt.ylabel("Distance")
+    plt.show()
+    
+def plotTSP_path(paths, points, num_iters=1):
 
+    """
+    :path: chemin 
+    :points: coordonées des points
+    :num_iters: nombre d'itérations
+    :return: None,affiche le graphe de l'évolution
+    """
+
+    x = []; y = []
+    for i in paths[0]:
+        x.append(points[i][0])
+        y.append(points[i][1])
+    
+    plt.plot(x, y, 'co')
+
+
+    a_scale = float(max(x))/float(100)
+
+
+    if num_iters > 1:
+
+        for i in range(1, num_iters):
+
+ 
+            xi = []; yi = [];
+            for j in paths[i]:
+                xi.append(points[j][0])
+                yi.append(points[j][1])
+
+            plt.arrow(xi[-1], yi[-1], (xi[0] - xi[-1]), (yi[0] - yi[-1]), 
+                    head_width = a_scale, color = 'r', 
+                    length_includes_head = True, ls = 'dashed',
+                    width = 0.001/float(num_iters))
+            for i in range(0, len(x) - 1):
+                plt.arrow(xi[i], yi[i], (xi[i+1] - xi[i]), (yi[i+1] - yi[i]),
+                        head_width = a_scale, color = 'r', length_includes_head = True,
+                        ls = 'dashed', width = 0.001/float(num_iters))
+
+
+    plt.arrow(x[-1], y[-1], (x[0] - x[-1]), (y[0] - y[-1]), head_width = a_scale, 
+            color ='red', length_includes_head=True)
+    for i in range(0,len(x)-1):
+        plt.arrow(x[i], y[i], (x[i+1] - x[i]), (y[i+1] - y[i]), head_width = a_scale,
+                color = 'red', length_includes_head = True)
+
+ 
+    plt.xlim(min(x)-0.1*max(x), max(x)*1.1)
+    plt.ylim(min(y)-0.1*max(y), max(y)*1.1)
+    plt.show()
+    
+    
+def evolution_travelsaleman(paths,grid,iter_display):
+    """
+    :paths(array): Tous les chemin dans un array 
+    :param grid(array-like): grille considérée des villes par leur coordonnées
+    :iter_display(int): Itération d'affichage
+    :return: None,affiche le graphe de l'évolution
+    """
+            
+    for _,p in enumerate(paths):
+        if _%iter_display == 0:
+            clear_output(wait=True)
+            plotTSP_path([p], grid, num_iters=1)
