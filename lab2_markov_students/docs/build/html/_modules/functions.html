@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>functions &mdash; Documentation Markov Chain SDIA 1.0.0</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Markov Chain SDIA
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">functions module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Markov Chain SDIA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Code du module</a></li>
+      <li class="breadcrumb-item active">functions</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Code source de functions</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">clear_output</span>
+
+
+
+<span class="c1">#***********************************************************************************************************************</span>
+<span class="c1">#                                               EXERCICE 1</span>
+<span class="c1">#***********************************************************************************************************************</span>
+
+<span class="n">stationary_distrib_mm1inf</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">rho_mm1inf</span> <span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">rho_mm1inf</span><span class="p">)</span><span class="o">*</span><span class="n">rho_mm1inf</span><span class="o">**</span><span class="n">i</span>
+<span class="n">stationary_distrib_mm1K</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">rho_mm1K</span><span class="p">,</span><span class="n">K</span> <span class="p">:</span> <span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">rho_mm1K</span><span class="p">)</span><span class="o">*</span><span class="n">rho_mm1K</span><span class="o">**</span><span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">rho_mm1K</span><span class="o">**</span><span class="p">(</span><span class="n">K</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">K</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="run_mm1inf"><a class="viewcode-back" href="../functions.html#functions.run_mm1inf">[docs]</a><span class="k">def</span> <span class="nf">run_mm1inf</span><span class="p">(</span><span class="n">lambd</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">rng</span><span class="p">,</span> <span class="n">niter</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        lambd (float): birth rate.</span>
+<span class="sd">        mu (float): death rate</span>
+<span class="sd">        rng : random seed (or random generator).</span>
+<span class="sd">        niter (int): number of changes (events) in </span>
+<span class="sd">                     the process.</span>
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: error triggered if lambd &lt;= 0.</span>
+<span class="sd">        ValueError: error triggered if mu &lt;= 0.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        X (array_like): trajectory (X(t_n)).</span>
+<span class="sd">        T (array_like): time instants at which a change in </span>
+<span class="sd">                        the process occurs (t_n).</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
+    <span class="k">assert</span> <span class="n">lambd</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">,</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;lambd&lt;=0&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">mu</span> <span class="o">&gt;</span><span class="mi">0</span><span class="p">,</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;mu&lt;=0&quot;</span><span class="p">)</span>
+    <span class="n">lambd</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">lambd</span>
+    <span class="n">mu</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">mu</span>
+    <span class="n">T</span><span class="p">,</span><span class="n">X</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">niter</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">niter</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">niter</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">rng</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">lambd</span><span class="p">)</span>
+            <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Tb</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">lambd</span><span class="p">)</span>
+            <span class="n">Td</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">Tb</span><span class="o">&lt;</span><span class="n">Td</span> <span class="p">:</span> 
+                <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">Tb</span>
+                <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">Td</span>
+                <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="n">X</span><span class="p">,</span><span class="n">T</span></div>
+
+<div class="viewcode-block" id="run_mm1K"><a class="viewcode-back" href="../functions.html#functions.run_mm1K">[docs]</a><span class="k">def</span> <span class="nf">run_mm1K</span><span class="p">(</span><span class="n">lambd</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span><span class="n">K</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rng</span><span class="p">,</span> <span class="n">niter</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        lambd (float): birth rate.</span>
+<span class="sd">        mu (float): death rate</span>
+<span class="sd">        rng : random seed (or random generator).</span>
+<span class="sd">        niter (int): number of changes (events) in</span>
+<span class="sd">                     the process.</span>
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: error triggered if lambd &lt;= 0.</span>
+<span class="sd">        ValueError: error triggered if mu &lt;= 0.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        X (array_like): trajectory (X(t_n)).</span>
+<span class="sd">        T (array_like): time instants at which a change in</span>
+<span class="sd">                        the process occurs (t_n).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">lambd</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">,</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;lambd&lt;=0&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">mu</span> <span class="o">&gt;</span><span class="mi">0</span><span class="p">,</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;mu&lt;=0&quot;</span><span class="p">)</span>
+    <span class="n">lambd</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">lambd</span>
+    <span class="n">mu</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">mu</span>
+
+    <span class="n">T</span><span class="p">,</span><span class="n">X</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">niter</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">niter</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">niter</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">rng</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">lambd</span><span class="p">))</span>
+            <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">K</span><span class="p">:</span>
+            <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">rng</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">mu</span><span class="p">))</span>
+            <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Tb</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">lambd</span><span class="p">)</span>
+            <span class="n">Td</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">Tb</span><span class="o">&lt;</span><span class="n">Td</span> <span class="p">:</span>
+                <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">Tb</span><span class="p">)</span>
+                <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">Td</span><span class="p">)</span>
+                <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">X</span><span class="p">,</span><span class="n">T</span></div>
+
+
+<div class="viewcode-block" id="draw_queue"><a class="viewcode-back" href="../functions.html#functions.draw_queue">[docs]</a><span class="k">def</span> <span class="nf">draw_queue</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">T</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param X (array-like): évolution du nombre de personnes dans la file</span>
+<span class="sd">    :param T (array-like): temps associés aux changements du nombre de personnes dans la file</span>
+<span class="sd">    :return: None, affiche un graphique pour l&#39;évolution</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Evolution du nombre de personnes dans la file en fonction du temps&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Temps&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Nombre de personnes dans la file&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="plotHistogramm"><a class="viewcode-back" href="../functions.html#functions.plotHistogramm">[docs]</a><span class="k">def</span> <span class="nf">plotHistogramm</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">weights</span><span class="p">,</span><span class="n">rho</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">step_numbers</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span><span class="n">affiche_step</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
+    <span class="n">valeurs_prises</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">valeurs_prises</span><span class="p">,</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Valeurs simulées&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">valeurs_prises</span><span class="p">,</span><span class="n">stationary_distrib_mm1inf</span><span class="p">(</span><span class="n">valeurs_prises</span><span class="p">,</span><span class="n">rho</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Valeurs théoriques&#39;</span><span class="p">)</span>
+    <span class="n">st</span><span class="o">=</span><span class="s2">&quot;Histrogramme de la proportion de personnes dans la queue&quot;</span>
+    <span class="k">if</span> <span class="n">affiche_step</span><span class="p">:</span>
+        <span class="n">st</span><span class="o">=</span><span class="n">st</span><span class="o">+</span><span class="sa">f</span><span class="s1">&#39; - nombre de steps : </span><span class="si">{</span><span class="n">step_numbers</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Nombre de personnes&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Proportion&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="plotHistogrammK"><a class="viewcode-back" href="../functions.html#functions.plotHistogrammK">[docs]</a><span class="k">def</span> <span class="nf">plotHistogrammK</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">weights</span><span class="p">,</span><span class="n">rho</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">step_numbers</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span><span class="n">affiche_step</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
+    <span class="n">valeurs_prises_mm1K</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">a</span><span class="p">,</span><span class="n">bins</span><span class="p">,</span> <span class="n">_</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="o">+</span><span class="mi">2</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">weights</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">weights</span><span class="p">),</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Valeurs simulées&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">valeurs_prises_mm1K</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span><span class="n">stationary_distrib_mm1K</span><span class="p">(</span><span class="n">valeurs_prises_mm1K</span><span class="p">,</span><span class="n">rho</span><span class="p">,</span><span class="n">K</span><span class="p">),</span><span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Valeurs théoriques&#39;</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="s2">&quot;Histrogramme de la proportion de personnes dans la queue&quot;</span>
+    <span class="k">if</span> <span class="n">affiche_step</span><span class="p">:</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="n">st</span><span class="o">+</span><span class="sa">f</span><span class="s1">&#39; - nombre de steps : </span><span class="si">{</span><span class="n">step_numbers</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Nombre de personnes&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Proportion&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="theorical_mean"><a class="viewcode-back" href="../functions.html#functions.theorical_mean">[docs]</a><span class="k">def</span> <span class="nf">theorical_mean</span><span class="p">(</span><span class="n">rho_mm1K</span><span class="p">,</span><span class="n">K</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">i</span><span class="o">*</span><span class="n">stationary_distrib_mm1K</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">rho_mm1K</span><span class="p">,</span><span class="n">K</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span></div>
+
+
+
+<span class="c1">#***********************************************************************************************************************</span>
+<span class="c1">#                                               EXERCICE 2</span>
+<span class="c1">#***********************************************************************************************************************</span>
+
+<div class="viewcode-block" id="metro_hasting_ising_2D"><a class="viewcode-back" href="../functions.html#functions.metro_hasting_ising_2D">[docs]</a><span class="k">def</span> <span class="nf">metro_hasting_ising_2D</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">beta</span><span class="p">,</span><span class="n">num_samples</span><span class="p">,</span><span class="n">display_iter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        N (int) : grid dimension grille (N x N)</span>
+<span class="sd">        beta (float) : inverse temperature </span>
+<span class="sd">        num_samples (int) : number of iterations on the grid</span>
+<span class="sd">        display_iter (int) : number of steps before refreshing grid display</span>
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: error triggered if display_iter &lt;= 0.</span>
+<span class="sd">        ValueError: error triggered if num_samples &lt;= 0.</span>
+<span class="sd">        ValueError: error triggered if N &lt;= 0.</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">N</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">,</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;N should be positive, N=</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">display_iter</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">,</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;display_iter should be positive, display_iter=</span><span class="si">{</span><span class="n">display_iter</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">num_samples</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">,</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;num_samples should be positive, num_samples=</span><span class="si">{</span><span class="n">num_samples</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">grid</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+        <span class="n">delta_E</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">grid</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">grid</span><span class="p">[(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">,</span><span class="n">y</span><span class="p">]</span> <span class="o">+</span> <span class="n">grid</span><span class="p">[(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">,</span><span class="n">y</span><span class="p">]</span> <span class="o">+</span> <span class="n">grid</span><span class="p">[</span><span class="n">x</span><span class="p">,(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">]</span> <span class="o">+</span> <span class="n">grid</span><span class="p">[</span><span class="n">x</span><span class="p">,(</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">beta</span> <span class="o">*</span> <span class="n">delta_E</span><span class="p">):</span>
+            <span class="n">grid</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">grid</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="n">display_iter</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+
+<span class="c1">#***********************************************************************************************************************</span>
+<span class="c1">#                                               EXERCICE 3</span>
+<span class="c1">#***********************************************************************************************************************</span>
+
+
+<div class="viewcode-block" id="draw_neighbour"><a class="viewcode-back" href="../functions.html#functions.draw_neighbour">[docs]</a><span class="k">def</span> <span class="nf">draw_neighbour</span><span class="p">(</span><span class="n">xn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param xn(float):paramètre considéré</span>
+<span class="sd">    :return: un voisin du paramètre à +- 0.005 près selon une loi uniforme</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">xn</span><span class="o">+</span><span class="mf">0.005</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">()</span><span class="o">&lt;</span><span class="mf">0.5</span> <span class="k">else</span> <span class="n">xn</span><span class="o">-</span><span class="mf">0.005</span> <span class="p">)</span></div>
+<div class="viewcode-block" id="acceptance_probability"><a class="viewcode-back" href="../functions.html#functions.acceptance_probability">[docs]</a><span class="k">def</span> <span class="nf">acceptance_probability</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">xn</span><span class="p">,</span><span class="n">Tn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param f(lambda): fonction considérée</span>
+<span class="sd">    :param y: voisin de xn</span>
+<span class="sd">    :param xn: particule considérée</span>
+<span class="sd">    :param Tn: Température pour la probabilité d&#39;acceptation</span>
+<span class="sd">    :return: (float) dans [0,1], probabilité d&#39;acceptation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span><span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">&lt;</span><span class="n">f</span><span class="p">(</span><span class="n">xn</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">xn</span><span class="p">))</span><span class="o">/</span><span class="n">Tn</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="simulated_annealing"><a class="viewcode-back" href="../functions.html#functions.simulated_annealing">[docs]</a><span class="k">def</span> <span class="nf">simulated_annealing</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">T_min</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">T0</span><span class="p">,</span><span class="n">draw_neighbour</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param f(lambda): fonction considérée</span>
+<span class="sd">    :param N: nombre d&#39;itérations avant la fin de l&#39;algorithme</span>
+<span class="sd">    :param T_min: précision maximale</span>
+<span class="sd">    :param x0: particule de départ</span>
+<span class="sd">    :param T0: température initiale pour la probabilité d&#39;acceptance</span>
+<span class="sd">    :param draw_neighbour: Fonction qui génère un voisin </span>
+<span class="sd">    :return: tuple (X,F) contenant deux array respectivempent : évolution de x, évolution de f(x)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">xn</span> <span class="o">=</span> <span class="n">x0</span>
+    <span class="n">Tn</span><span class="o">=</span><span class="n">T0</span>
+    <span class="n">X</span><span class="p">,</span><span class="n">F</span><span class="o">=</span><span class="p">[],[]</span>
+
+    <span class="k">while</span> <span class="n">n</span><span class="o">&lt;</span><span class="n">N</span> <span class="ow">and</span> <span class="n">Tn</span><span class="o">&gt;</span><span class="n">T_min</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">draw_neighbour</span><span class="p">(</span><span class="n">xn</span><span class="p">)</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">()</span>
+        <span class="n">xn</span> <span class="o">=</span> <span class="n">y</span> <span class="k">if</span> <span class="n">u</span> <span class="o">&lt;=</span> <span class="n">acceptance_probability</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">xn</span><span class="p">,</span><span class="n">Tn</span><span class="p">)</span> <span class="k">else</span> <span class="n">xn</span>
+        <span class="n">X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xn</span><span class="p">)</span>
+        <span class="n">F</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">xn</span><span class="p">))</span>
+        <span class="n">Tn</span> <span class="o">=</span> <span class="n">T0</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">F</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="plotAnnealing"><a class="viewcode-back" href="../functions.html#functions.plotAnnealing">[docs]</a><span class="k">def</span> <span class="nf">plotAnnealing</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">step_number</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">drawSteps</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param X (array-like): évolution du paramètre x</span>
+<span class="sd">    :param step_number (int): nombre de steps considérés</span>
+<span class="sd">    :param drawSteps (Boolean): affichage ou non du nombre d&#39;étapes</span>
+<span class="sd">    :return: None, affiche le graphique de l&#39;avolution de X</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">st</span><span class="o">=</span><span class="s2">&quot;Convergence du minimum x recherché&quot;</span>
+    <span class="k">if</span> <span class="n">drawSteps</span><span class="p">:</span>
+        <span class="n">st</span><span class="o">=</span><span class="n">st</span><span class="o">+</span><span class="sa">f</span><span class="s2">&quot; - Nombre d&#39;itérations : </span><span class="si">{</span><span class="n">step_number</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;itérations&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Valeur de x&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="create_city"><a class="viewcode-back" href="../functions.html#functions.create_city">[docs]</a><span class="k">def</span> <span class="nf">create_city</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">max_size_city</span><span class="p">,</span><span class="n">etalement</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param K(int): nombre de villes à tirer</span>
+<span class="sd">    :param max_size_city(int): valeur maximale des coordonnées</span>
+<span class="sd">    :param etalement (int): variance considérée</span>
+<span class="sd">    :return: (array-like) une grille contenant les coordonnées des villes sur un plan 2D</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">grid</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span><span class="o">&lt;</span><span class="n">K</span><span class="p">:</span>
+        <span class="n">grid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">max_size_city</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span> <span class="o">=</span> <span class="n">etalement</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span><span class="n">size</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">grid</span></div>
+
+<span class="kn">import</span> <span class="nn">pdb</span>
+<div class="viewcode-block" id="distance_permut"><a class="viewcode-back" href="../functions.html#functions.distance_permut">[docs]</a><span class="k">def</span> <span class="nf">distance_permut</span><span class="p">(</span><span class="n">sigma</span><span class="p">,</span><span class="n">dist</span><span class="p">,</span><span class="n">grid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param sigma(array-like): permutation considérée</span>
+<span class="sd">    :param dist(lambda): calcule une norme entre deux vecteurs (ici distance)</span>
+<span class="sd">    :param grid(array-like): grille considérée des villes par leur coordonnées</span>
+<span class="sd">    :return: (int) coût total de cette permutation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">K</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">dist</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">sigma</span><span class="p">[</span><span class="n">j</span><span class="p">]],</span> <span class="n">grid</span><span class="p">[</span><span class="n">sigma</span><span class="p">[(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">K</span><span class="p">]])</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">))])</span></div>
+
+<div class="viewcode-block" id="generate_indices"><a class="viewcode-back" href="../functions.html#functions.generate_indices">[docs]</a><span class="k">def</span> <span class="nf">generate_indices</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param K(int): indice maximal à considérer</span>
+<span class="sd">    :return: tuple(int,int) deux indices différents parmis [0,K]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="k">while</span> <span class="n">k</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="draw_neighbourTSP"><a class="viewcode-back" href="../functions.html#functions.draw_neighbourTSP">[docs]</a><span class="k">def</span> <span class="nf">draw_neighbourTSP</span><span class="p">(</span><span class="n">sigman</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param sigman(array-like): tableau des permutations condidérées</span>
+<span class="sd">    :return: (array-like) permutation aléatoire de deux éléments différents</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sigmanp1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">sigman</span><span class="p">)</span>
+    <span class="n">i</span><span class="p">,</span><span class="n">k</span> <span class="o">=</span> <span class="n">generate_indices</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sigman</span><span class="p">))</span>
+    <span class="n">sigmanp1</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">sigmanp1</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">sigmanp1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="plotTSP"><a class="viewcode-back" href="../functions.html#functions.plotTSP">[docs]</a><span class="k">def</span> <span class="nf">plotTSP</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param grid(array-like): grille considérée des villes par leur coordonnées</span>
+<span class="sd">    :return: None,affiche le graphe de l&#39;évolution</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">grid</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">grid</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">marker</span> <span class="o">=</span> <span class="s2">&quot;P&quot;</span><span class="p">,</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Villes du problème considéré&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;coordonée x&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;coordonnée y&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="plot_distance_iter"><a class="viewcode-back" href="../functions.html#functions.plot_distance_iter">[docs]</a><span class="k">def</span> <span class="nf">plot_distance_iter</span><span class="p">(</span><span class="n">F</span><span class="p">,</span><span class="n">N</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param F(array-like): Liste des distances au fur et à mesure des itérations</span>
+<span class="sd">    :param N(int): nombre d&#39;itérations</span>
+<span class="sd">    :return: None,affiche le graphe de l&#39;évolution</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">F</span><span class="p">,</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span><span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distance du chemin en fonction </span><span class="se">\n</span><span class="s2"> du nombre d&#39;itérations ($N = </span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2"> $)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Nb itérations&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Distance&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+    
+<div class="viewcode-block" id="plotTSP_path"><a class="viewcode-back" href="../functions.html#functions.plotTSP_path">[docs]</a><span class="k">def</span> <span class="nf">plotTSP_path</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">num_iters</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :path: chemin </span>
+<span class="sd">    :points: coordonées des points</span>
+<span class="sd">    :num_iters: nombre d&#39;itérations</span>
+<span class="sd">    :return: None,affiche le graphe de l&#39;évolution</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="p">[];</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;co&#39;</span><span class="p">)</span>
+
+
+    <span class="n">a_scale</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
+
+    <span class="k">if</span> <span class="n">num_iters</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_iters</span><span class="p">):</span>
+
+ 
+            <span class="n">xi</span> <span class="o">=</span> <span class="p">[];</span> <span class="n">yi</span> <span class="o">=</span> <span class="p">[];</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="n">xi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">yi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">xi</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">yi</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="n">xi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">xi</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="n">yi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">yi</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> 
+                    <span class="n">head_width</span> <span class="o">=</span> <span class="n">a_scale</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> 
+                    <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">ls</span> <span class="o">=</span> <span class="s1">&#39;dashed&#39;</span><span class="p">,</span>
+                    <span class="n">width</span> <span class="o">=</span> <span class="mf">0.001</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">num_iters</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">xi</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">yi</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">(</span><span class="n">xi</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">xi</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="p">(</span><span class="n">yi</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">yi</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
+                        <span class="n">head_width</span> <span class="o">=</span> <span class="n">a_scale</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                        <span class="n">ls</span> <span class="o">=</span> <span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">0.001</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">num_iters</span><span class="p">))</span>
+
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">head_width</span> <span class="o">=</span> <span class="n">a_scale</span><span class="p">,</span> 
+            <span class="n">color</span> <span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">head_width</span> <span class="o">=</span> <span class="n">a_scale</span><span class="p">,</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+ 
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mf">0.1</span><span class="o">*</span><span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="mf">1.1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">-</span><span class="mf">0.1</span><span class="o">*</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="mf">1.1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+    
+    
+<div class="viewcode-block" id="evolution_travelsaleman"><a class="viewcode-back" href="../functions.html#functions.evolution_travelsaleman">[docs]</a><span class="k">def</span> <span class="nf">evolution_travelsaleman</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span><span class="n">grid</span><span class="p">,</span><span class="n">iter_display</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :paths(array): Tous les chemin dans un array </span>
+<span class="sd">    :param grid(array-like): grille considérée des villes par leur coordonnées</span>
+<span class="sd">    :iter_display(int): Itération d&#39;affichage</span>
+<span class="sd">    :return: None,affiche le graphe de l&#39;évolution</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+            
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span><span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">paths</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">_</span><span class="o">%</span><span class="n">iter_display</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">plotTSP_path</span><span class="p">([</span><span class="n">p</span><span class="p">],</span> <span class="n">grid</span><span class="p">,</span> <span class="n">num_iters</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Victor Cilleros and Victor Niaussat.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

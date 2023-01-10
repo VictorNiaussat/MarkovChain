@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>functions module &mdash; Documentation Markov Chain SDIA 1.0.0</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="prev" title="Welcome to Markov Chain SDIA’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Markov Chain SDIA
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">functions module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Markov Chain SDIA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">functions module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/functions.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-functions">
+<span id="functions-module"></span><h1>functions module<a class="headerlink" href="#module-functions" title="Lien permanent vers ce titre"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.acceptance_probability">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">acceptance_probability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Tn</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#acceptance_probability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.acceptance_probability" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong><strong>(</strong><strong>lambda</strong><strong>)</strong> – fonction considérée</p></li>
+<li><p><strong>y</strong> – voisin de xn</p></li>
+<li><p><strong>xn</strong> – particule considérée</p></li>
+<li><p><strong>Tn</strong> – Température pour la probabilité d’acceptation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>(float) dans [0,1], probabilité d’acceptation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.create_city">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">create_city</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_size_city</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">etalement</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#create_city"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.create_city" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>K</strong><strong>(</strong><strong>int</strong><strong>)</strong> – nombre de villes à tirer</p></li>
+<li><p><strong>max_size_city</strong><strong>(</strong><strong>int</strong><strong>)</strong> – valeur maximale des coordonnées</p></li>
+<li><p><strong>(</strong><strong>int</strong><strong>)</strong> (<em>etalement</em>) – variance considérée</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>(array-like) une grille contenant les coordonnées des villes sur un plan 2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.distance_permut">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">distance_permut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#distance_permut"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.distance_permut" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sigma</strong><strong>(</strong><strong>array-like</strong><strong>)</strong> – permutation considérée</p></li>
+<li><p><strong>dist</strong><strong>(</strong><strong>lambda</strong><strong>)</strong> – calcule une norme entre deux vecteurs (ici distance)</p></li>
+<li><p><strong>grid</strong><strong>(</strong><strong>array-like</strong><strong>)</strong> – grille considérée des villes par leur coordonnées</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>(int) coût total de cette permutation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.draw_neighbour">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">draw_neighbour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xn</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#draw_neighbour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.draw_neighbour" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>:param xn(float):paramètre considéré
+:return: un voisin du paramètre à +- 0.005 près selon une loi uniforme</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.draw_neighbourTSP">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">draw_neighbourTSP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigman</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#draw_neighbourTSP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.draw_neighbourTSP" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>sigman</strong><strong>(</strong><strong>array-like</strong><strong>)</strong> – tableau des permutations condidérées</p>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>(array-like) permutation aléatoire de deux éléments différents</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.draw_queue">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">draw_queue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#draw_queue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.draw_queue" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>(</strong><strong>array-like</strong><strong>)</strong> (<em>T</em>) – évolution du nombre de personnes dans la file</p></li>
+<li><p><strong>(</strong><strong>array-like</strong><strong>)</strong> – temps associés aux changements du nombre de personnes dans la file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>None, affiche un graphique pour l’évolution</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.evolution_travelsaleman">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">evolution_travelsaleman</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_display</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#evolution_travelsaleman"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.evolution_travelsaleman" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Paths(array)</dt>
+<dd class="field-odd"><p>Tous les chemin dans un array</p>
+</dd>
+<dt class="field-even">Paramètres</dt>
+<dd class="field-even"><p><strong>grid</strong><strong>(</strong><strong>array-like</strong><strong>)</strong> – grille considérée des villes par leur coordonnées</p>
+</dd>
+<dt class="field-odd">Iter_display(int)</dt>
+<dd class="field-odd"><p>Itération d’affichage</p>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>None,affiche le graphe de l’évolution</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.generate_indices">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">generate_indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#generate_indices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.generate_indices" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>K</strong><strong>(</strong><strong>int</strong><strong>)</strong> – indice maximal à considérer</p>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>tuple(int,int) deux indices différents parmis [0,K]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.metro_hasting_ising_2D">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">metro_hasting_ising_2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_iter</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#metro_hasting_ising_2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.metro_hasting_ising_2D" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int</em>) – grid dimension grille (N x N)</p></li>
+<li><p><strong>beta</strong> (<em>float</em>) – inverse temperature</p></li>
+<li><p><strong>num_samples</strong> (<em>int</em>) – number of iterations on the grid</p></li>
+<li><p><strong>display_iter</strong> (<em>int</em>) – number of steps before refreshing grid display</p></li>
+</ul>
+</dd>
+<dt class="field-even">Lève</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – error triggered if display_iter &lt;= 0.</p></li>
+<li><p><strong>ValueError</strong> – error triggered if num_samples &lt;= 0.</p></li>
+<li><p><strong>ValueError</strong> – error triggered if N &lt;= 0.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.plotAnnealing">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">plotAnnealing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drawSteps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#plotAnnealing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.plotAnnealing" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>(</strong><strong>array-like</strong><strong>)</strong> (<em>X</em>) – évolution du paramètre x</p></li>
+<li><p><strong>(</strong><strong>int</strong><strong>)</strong> (<em>step_number</em>) – nombre de steps considérés</p></li>
+<li><p><strong>(</strong><strong>Boolean</strong><strong>)</strong> (<em>drawSteps</em>) – affichage ou non du nombre d’étapes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>None, affiche le graphique de l’avolution de X</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.plotHistogramm">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">plotHistogramm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_numbers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affiche_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#plotHistogramm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.plotHistogramm" title="Lien permanent vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.plotHistogrammK">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">plotHistogrammK</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_numbers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affiche_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#plotHistogrammK"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.plotHistogrammK" title="Lien permanent vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.plotTSP">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">plotTSP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#plotTSP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.plotTSP" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>grid</strong><strong>(</strong><strong>array-like</strong><strong>)</strong> – grille considérée des villes par leur coordonnées</p>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>None,affiche le graphe de l’évolution</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.plotTSP_path">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">plotTSP_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#plotTSP_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.plotTSP_path" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Path</dt>
+<dd class="field-odd"><p>chemin</p>
+</dd>
+<dt class="field-even">Points</dt>
+<dd class="field-even"><p>coordonées des points</p>
+</dd>
+<dt class="field-odd">Num_iters</dt>
+<dd class="field-odd"><p>nombre d’itérations</p>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>None,affiche le graphe de l’évolution</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.plot_distance_iter">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">plot_distance_iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">F</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#plot_distance_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.plot_distance_iter" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>F</strong><strong>(</strong><strong>array-like</strong><strong>)</strong> – Liste des distances au fur et à mesure des itérations</p></li>
+<li><p><strong>N</strong><strong>(</strong><strong>int</strong><strong>)</strong> – nombre d’itérations</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>None,affiche le graphe de l’évolution</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.run_mm1K">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">run_mm1K</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">niter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#run_mm1K"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.run_mm1K" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lambd</strong> (<em>float</em>) – birth rate.</p></li>
+<li><p><strong>mu</strong> (<em>float</em>) – death rate</p></li>
+<li><p><strong>rng</strong> – random seed (or random generator).</p></li>
+<li><p><strong>niter</strong> (<em>int</em>) – number of changes (events) in
+the process.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Lève</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – error triggered if lambd &lt;= 0.</p></li>
+<li><p><strong>ValueError</strong> – error triggered if mu &lt;= 0.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p><p>trajectory (X(t_n)).
+T (array_like): time instants at which a change in</p>
+<blockquote>
+<div><p>the process occurs (t_n).</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>X (array_like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.run_mm1inf">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">run_mm1inf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">niter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#run_mm1inf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.run_mm1inf" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lambd</strong> (<em>float</em>) – birth rate.</p></li>
+<li><p><strong>mu</strong> (<em>float</em>) – death rate</p></li>
+<li><p><strong>rng</strong> – random seed (or random generator).</p></li>
+<li><p><strong>niter</strong> (<em>int</em>) – number of changes (events) in
+the process.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Lève</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – error triggered if lambd &lt;= 0.</p></li>
+<li><p><strong>ValueError</strong> – error triggered if mu &lt;= 0.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p><p>trajectory (X(t_n)).
+T (array_like): time instants at which a change in</p>
+<blockquote>
+<div><p>the process occurs (t_n).</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>X (array_like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.simulated_annealing">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">simulated_annealing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_neighbour</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#simulated_annealing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.simulated_annealing" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong><strong>(</strong><strong>lambda</strong><strong>)</strong> – fonction considérée</p></li>
+<li><p><strong>N</strong> – nombre d’itérations avant la fin de l’algorithme</p></li>
+<li><p><strong>T_min</strong> – précision maximale</p></li>
+<li><p><strong>x0</strong> – particule de départ</p></li>
+<li><p><strong>T0</strong> – température initiale pour la probabilité d’acceptance</p></li>
+<li><p><strong>draw_neighbour</strong> – Fonction qui génère un voisin</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>tuple (X,F) contenant deux array respectivempent : évolution de x, évolution de f(x)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.stationary_distrib_mm1K">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">stationary_distrib_mm1K</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho_mm1K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#functions.stationary_distrib_mm1K" title="Lien permanent vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.stationary_distrib_mm1inf">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">stationary_distrib_mm1inf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho_mm1inf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#functions.stationary_distrib_mm1inf" title="Lien permanent vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.theorical_mean">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">theorical_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho_mm1K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#theorical_mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.theorical_mean" title="Lien permanent vers cette définition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Markov Chain SDIA’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Victor Cilleros and Victor Niaussat.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

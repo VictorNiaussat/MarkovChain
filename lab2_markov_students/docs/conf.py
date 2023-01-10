@@ -17,12 +17,12 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Chaine de Markov'
-copyright = '2023, Victor Niaussat et Victor Cilleros'
-author = 'Victor Niaussat et Victor Cilleros'
+project = 'Markov Chain SDIA'
+copyright = '2023, Victor Cilleros and Victor Niaussat'
+author = 'Victor Cilleros and Victor Niaussat'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = '1.0.0'
 
 
 # -- General configuration ---------------------------------------------------
